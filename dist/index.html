@@ -2,28 +2,32 @@
 <html lang="en">
 
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="search">
-        <input type="text" id="search-input">
-        <input type="checkbox" id="diary-free" name="diary-free" value="yes" />    
-        <label for="diary-free">Diary free</label>
-        <input type="checkbox" id="gluten-free" name="gluten-free" value="yes" />    
-        <label for="gluteen-free">Gluten free</label>
-        <button id="search-button">Search</button>
-        
-    </div>
-    <div class="recipes"></div>
+        <div class="search">
+            <input type="text" id="search-input" placeholder="Enter an ingredient">
+            <input type="checkbox" id="diary-free" name="diary-free" value="yes" />
+            <label for="diary-free">Diary free</label>
+            <input type="checkbox" id="gluten-free" name="gluten-free" value="yes" />
+            <label for="gluteen-free">Gluten free</label>
+            <button id="search-button" >Search</button>
+        </div>
+
+        <div class="recipes"></div>
+   
     <script id="recipe-template" type="text/x-handlebars-template">
         <div class="recipe">
-        <a href="{{href}}" target="_blank"><h1>{{title}}</h1></a>
+        <a href="{{href}}" target="_blank"><h3>{{title}}</h3></a>
         <img src="{{thumbnail}}"  class="recipe-img">
         <ul>
+            <h3>ingredients</h3>
             {{#each ingredients}}
               <li>{{this}}</li>
             {{/each}}

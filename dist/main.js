@@ -3,7 +3,7 @@ dairyIngredients = ["Cream","Cheese","Milk","Butter","Creme","Ricotta","Mozzarel
 glutenIngredients = ["Flour","Bread","spaghetti","Biscuits","Beer"]
 function  recipesRender(recipes){
     const recipes_div = $('.recipes')
-    if(!recipes){
+    if(!recipes || recipes.length === 0){
         recipes_div.empty()
         recipes_div.append($('<h2>there is no recipies for this ingridient</h2>'))
         return
