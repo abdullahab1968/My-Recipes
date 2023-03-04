@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="search">
-        <input type="text"  id="search-input">
+        <input type="text" id="search-input">
+        <input type="checkbox" id="diary-free" name="diary-free" value="yes" />    
+        <label for="diary-free">Diary free</label>
+        <input type="checkbox" id="gluten-free" name="gluten-free" value="yes" />    
+        <label for="gluteen-free">Gluten free</label>
         <button id="search-button">Search</button>
+        
     </div>
     <div class="recipes"></div>
-    <script id="recipe-template" class="recipe" type="text/x-handlebars-template">
+    <script id="recipe-template" type="text/x-handlebars-template">
+        <div class="recipe">
         <a href="{{href}}" target="_blank"><h1>{{title}}</h1></a>
-        <img src="{{thumbnail}}" alt="">
+        <img src="{{thumbnail}}"  class="recipe-img">
         <ul>
             {{#each ingredients}}
               <li>{{this}}</li>
             {{/each}}
         </ul>
-    </script>
+        </div>
     </script>
     <script src="./jquery/dist/jquery.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
     <script src="main.js"></script>
 </body>
+
 </html>
