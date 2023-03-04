@@ -6,12 +6,13 @@ const RECIPES_URL = "https://recipes-goodness-elevation.herokuapp.com/recipes/in
 router.get('/recipes/:ingredient', function(req, res){
     axios.get(RECIPES_URL + req.params.ingredient).then(response => {
         let recipes = response.data.results
+        console.log(recipes)
         recipes = recipes.map(r => {return  {
-            title: r.title, ingredients: r.ingredients,thumbnail: r.thumbnail
+            title: r.title, ingredients: r.ingredients,thumbnail: r.thumbnail,
+            idMeal: r.idMeal, href: r.href  
     }}) 
     return recipes
-    }).then(recipes =>{ res.send(recipes)
-    console.log(recipes);})
+    }).then(recipes =>{ res.send(recipes)})
     
 
 })
