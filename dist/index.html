@@ -11,7 +11,17 @@
         <input type="text"  id="search-input">
         <button id="search-button">Search</button>
     </div>
-    
+    <div class="recipes"></div>
+    <script id="recipe-template" class="recipe" type="text/x-handlebars-template">
+        <h1>{{title}}</h1>
+        <img src="{{thumbnail}}" alt="">
+        <ul>
+            {{#each ingredients}}
+              <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </script>
+    </script>
     <script src="./jquery/dist/jquery.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
     <script src="main.js"></script>
