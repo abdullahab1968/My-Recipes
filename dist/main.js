@@ -16,9 +16,11 @@ function  recipesRender(recipes){
         recipes_div.append(newHTML)
     }
 }
+
+
 $('#search-button').on('click', function(){
     let ingredient = $('#search-input').val()
-    $('#search-input').val('')
+
     if(!ingredient){
         alert('Please insert an ingredient')
         return
@@ -26,36 +28,67 @@ $('#search-button').on('click', function(){
     let glutenFree = $('#gluten-free').is(":checked")
     let diaryFree = $('#diary-free').is(":checked")
 
-    $.get(`recipes/${ingredient}`, function(recipes){
-        console.log(recipes)
-        if(diaryFree){
-            for(let i=0; i < recipes.length; i++){
-                for(let ing of recipes[i].ingredients){
-                    ing = ing.charAt(0).toUpperCase() + ing.slice(1);
-                    if(dairyIngredients.includes(ing)){
-                        recipes.splice(i,1)
-                        i-=1
-                        break
-                    }
-                }
-            }
+    $.get(`recipes/${ingredient}?page=1&limit=3`, function(response){
+        console.log(response)
+        // if(diaryFree){
+        //     for(let i=0; i < recipes.length; i++){
+        //         for(let ing of recipes[i].ingredients){
+        //             ing = ing.charAt(0).toUpperCase() + ing.slice(1);
+        //             if(dairyIngredients.includes(ing)){
+        //                 recipes.splice(i,1)
+        //                 i-=1
+        //                 break
+        //             }
+        //         }
+        //     }
+        // }
+        // if(glutenFree){
+        //     for(let i=0; i < recipes.length; i++){
+        //         for(let ing of recipes[i].ingredients){
+        //             ing = ing.charAt(0).toUpperCase() + ing.slice(1);
+        //             if(glutenIngredients.includes(ing)){
+        //                 recipes.splice(i,1)
+        //                 i-=1
+        //                 break
+        //             }
+        //         }
+        //     }
+        // }
+        if(response){
+        window.nextPage = response.nextPage
+        window.previousPage = response.previousPage
+        window.recipesLength = response.recipes.length
+        recipesRender(response.recipes)
         }
-        if(glutenFree){
-            for(let i=0; i < recipes.length; i++){
-                for(let ing of recipes[i].ingredients){
-                    ing = ing.charAt(0).toUpperCase() + ing.slice(1);
-                    if(glutenIngredients.includes(ing)){
-                        recipes.splice(i,1)
-                        i-=1
-                        break
-                    }
-                }
-            }
+        else{
+            recipesRender([])
         }
-        recipesRender(recipes)
+
     })
 })
 $('.recipes').on('click', '.recipe-img', function(){ 
     let firstIngredient = $(this).closest('.recipe').find('li:first').text()
     alert(firstIngredient)
+})
+
+$('#next').on('click', function(){
+    let ingredient = $('#search-input').val()
+    if(window.nextPage < window.recipesLength){
+        $.get(`recipes/${ingredient}?page=${window.nextPage++}&limit=3`,function(response){
+            recipesRender(response.recipes)
+            window.previousPage++
+            
+        })
+    }
+
+})
+$('#previous').on('click', function(){
+    let ingredient = $('#search-input').val()
+    if(window.previousPage > 0){
+        $.get(`recipes/${ingredient}?page=${window.previousPage--}&limit=3`,function(response){
+            recipesRender(response.recipes)
+            window.nextPage--
+        })
+    }
+
 })

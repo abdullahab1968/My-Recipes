@@ -4,7 +4,9 @@ const axios = require('axios')
 const RECIPES_URL = "https://recipes-goodness-elevation.herokuapp.com/recipes/ingredient/"
 
 router.get('/recipes/:ingredient', function(req, res){
-    axios.get(RECIPES_URL + req.params.ingredient)
+    
+
+    return axios.get(RECIPES_URL + req.params.ingredient)
     .then(response => {
         let recipes = response.data.results
    
@@ -16,9 +18,21 @@ router.get('/recipes/:ingredient', function(req, res){
             console.log(recipes)
             res.status(204).send({'error': `there is no recipes for  ${req.params.ingredient}`})
             return
-    } 
-
-        res.send(recipes)
+    }  
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+    const startIndex = (page-1) * limit
+    const endIndex = page * limit
+    const results = {}
+    if(endIndex < recipes.length){
+        results.nextPage = page + 1
+    }
+    
+        results.previousPage = page - 1
+    
+    results.recipes = recipes.slice(startIndex, endIndex)
+    
+    res.send(results)
     })
 })
 
