@@ -3,12 +3,12 @@ dairyIngredients = ["Cream","Cheese","Milk","Butter","Creme","Ricotta","Mozzarel
 glutenIngredients = ["Flour","Bread","spaghetti","Biscuits","Beer"]
 function  recipesRender(recipes){
     const recipes_div = $('.recipes')
+    recipes_div.empty()
     if(!recipes || recipes.length === 0){
-        recipes_div.empty()
         recipes_div.append($('<h2>there is no recipies for this ingridient</h2>'))
         return
     }
-    recipes_div.empty()
+    
     const source = $('#recipe-template').html()
     const template = Handlebars.compile(source)
     for(let recipe of recipes){
@@ -35,6 +35,7 @@ $('#search-button').on('click', function(){
                     if(dairyIngredients.includes(ing)){
                         recipes.splice(i,1)
                         i-=1
+                        break
                     }
                 }
             }
@@ -46,6 +47,7 @@ $('#search-button').on('click', function(){
                     if(glutenIngredients.includes(ing)){
                         recipes.splice(i,1)
                         i-=1
+                        break
                     }
                 }
             }
