@@ -30,35 +30,36 @@ $('#search-button').on('click', function(){
 
     $.get(`recipes/${ingredient}?page=1&limit=3`, function(response){
         console.log(response)
-        // if(diaryFree){
-        //     for(let i=0; i < recipes.length; i++){
-        //         for(let ing of recipes[i].ingredients){
-        //             ing = ing.charAt(0).toUpperCase() + ing.slice(1);
-        //             if(dairyIngredients.includes(ing)){
-        //                 recipes.splice(i,1)
-        //                 i-=1
-        //                 break
-        //             }
-        //         }
-        //     }
-        // }
-        // if(glutenFree){
-        //     for(let i=0; i < recipes.length; i++){
-        //         for(let ing of recipes[i].ingredients){
-        //             ing = ing.charAt(0).toUpperCase() + ing.slice(1);
-        //             if(glutenIngredients.includes(ing)){
-        //                 recipes.splice(i,1)
-        //                 i-=1
-        //                 break
-        //             }
-        //         }
-        //     }
-        // }
+        
         if(response){
-        window.nextPage = response.nextPage
-        window.previousPage = response.previousPage
-        window.recipesLength = response.recipes.length
-        recipesRender(response.recipes)
+            if(diaryFree){
+            for(let i=0; i < response.recipes.length; i++){
+                for(let ing of response.recipes[i].ingredients){
+                    ing = ing.charAt(0).toUpperCase() + ing.slice(1);
+                    if(dairyIngredients.includes(ing)){
+                        response.recipes.splice(i,1)
+                        i-=1
+                        break
+                    }
+                }
+            }
+        }
+        if(glutenFree){
+            for(let i=0; i < response.recipes.length; i++){
+                for(let ing of response.recipes[i].ingredients){
+                    ing = ing.charAt(0).toUpperCase() + ing.slice(1);
+                    if(glutenIngredients.includes(ing)){
+                        response.recipes.splice(i,1)
+                        i-=1
+                        break
+                    }
+                }
+            }
+        }
+            window.nextPage = response.nextPage
+            window.previousPage = response.previousPage
+            window.recipesLength = response.recipes.length
+            recipesRender(response.recipes)
         }
         else{
             recipesRender([])
