@@ -30,7 +30,6 @@ $('#search-button').on('click', function(){
         
             render.recipesRender(recipes)
             render.setPageNumber(1)
-            render.setNumberOfRecipes(10)
             
         }
     })
@@ -42,14 +41,14 @@ $('.recipes').on('click', '.recipe-img', function(){
 
 $('#next').on('click', function(){
     let ingredient = $('#search-input').val()
-    if(render.getNextPage() > 0){
+    
         $.get(`recipes/${ingredient}?page=${render.getNextPage()}&limit=${LIMTIT_PER_PAGE}`,function(recipes){
-            render.recipesRender(recipes)
-            render.increntCurrenPage()
-            
+            console.log(recipes)
+            if(recipes && recipes.length > 0){
+                render.recipesRender(recipes)
+                render.increntCurrenPage()
+            }  
         })
-    }
-
 })
 $('#previous').on('click', function(){
     let ingredient = $('#search-input').val()

@@ -1,14 +1,11 @@
 class Renderer{
     constructor(){
         this.currentPageNumber = 0
-        this.numberOfRecipes = 0
+
         
     }
     setPageNumber(pageNumber){
         this.currentPageNumber = pageNumber
-    }
-    setNumberOfRecipes(numberOfRecipes){
-        this.numberOfRecipes = numberOfRecipes
     }
     recipesRender(recipes){
         const recipes_div = $('.recipes')
@@ -45,10 +42,7 @@ class Renderer{
         return -1
     }
     getNextPage(){
-        if(this.currentPageNumber < this.numberOfRecipes - 1){
-            return this.currentPageNumber + 1
-        }
-        return -1
+        return this.currentPageNumber + 1
     }
     increntCurrenPage(){
         this.currentPageNumber ++
