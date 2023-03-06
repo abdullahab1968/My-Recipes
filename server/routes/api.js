@@ -23,16 +23,11 @@ router.get('/recipes/:ingredient', function(req, res){
     const limit = parseInt(req.query.limit)
     const startIndex = (page-1) * limit
     const endIndex = page * limit
-    const results = {}
-    if(endIndex < recipes.length){
-        results.nextPage = page + 1
-    }
+
     
-        results.previousPage = page - 1
+
     
-    results.recipes = recipes.slice(startIndex, endIndex)
-    
-    res.send(results)
+    res.send(recipes.slice(startIndex, endIndex))
     })
 })
 
