@@ -5,7 +5,7 @@ const RECIPES_URL = "https://recipes-goodness-elevation.herokuapp.com/recipes/in
 const data = require('../data/sensitivity')
 const dairyIngredients = data.dairyIngredients
 const glutenIngredients = data.glutenIngredients
-const filter = require('../data/filter').recipesFilter
+const filter = require('../services/filter').recipesFilter
 
 router.get('/recipes/:ingredient', function(req, res){
     
