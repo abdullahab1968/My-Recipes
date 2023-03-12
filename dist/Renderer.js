@@ -1,14 +1,12 @@
+const recipes_div = $('.recipes')
 class Renderer{
     constructor(){
         this.currentPageNumber = 0
-
-        
     }
     setPageNumber(pageNumber){
         this.currentPageNumber = pageNumber
     }
     recipesRender(recipes){
-        const recipes_div = $('.recipes')
         recipes_div.empty()
         if(!recipes || recipes.length === 0){
             recipes_div.append($('<h2>there is no recipies for this ingridient</h2>'))
@@ -23,18 +21,7 @@ class Renderer{
         }
     }
 
-    recipesFilter(recipes, sensitives){
-        for(let i=0; i < recipes.length; i++){
-            for(let ingredient of recipes[i].ingredients){
-                ingredient = ingredient.charAt(0).toUpperCase() + ingredient.slice(1);
-                if(sensitives.includes(ingredient)){
-                    recipes.splice(i,1)
-                    i-=1
-                    break
-                }
-            }
-        }
-    }
+    
     getPreviousPage(){
         if(this.currentPageNumber > 1){
             return this.currentPageNumber - 1
